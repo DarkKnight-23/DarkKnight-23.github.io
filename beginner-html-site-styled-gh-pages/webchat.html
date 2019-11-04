@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>PureCloud Webchat Demo</title>
+</head>
+
+<body>
+    <form id="chatForm">
+        <h3>Participant Information- local</h3>
+
+        <table class="webchat-config">
+            <tbody>
+                <tr>
+                    <th>First Name:</th>
+                    <td><input type="text" id="first-name" value="John" /></td>
+                </tr>
+                <tr>
+                    <th>Last Name:</th>
+                    <td><input type="text" id="last-name" value="Doe" /></td>
+                </tr>
+                <tr>
+                    <th>Agent Email:</th>
+                    <td><input type="text" id="agent-email" value="alex.agent@example.com" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" id="chat-button">Start Chat</button>
+    </form>
+    <div id="chat-container" style="height:600px"></div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script
+        id="purecloud-webchat-js"
+        type="text/javascript"
+        src="https://apps.mypurecloud.com/webchat/jsapi-v1.js"
+        region="YOUR_REGION"
+        org-guid="YOUR_ORG_GUID"
+        deployment-key="YOUR_DEPLOYMENT_KEY"
+    ></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function initializeChat () {
+            var chatConfig = {
+                "webchatAppUrl": "https://apps.mypurecloud.com.au/webchat",
+                "webchatServiceUrl": "https://realtime.mypurecloud.com.au:443",
+                "orgId": "9138",
+                "orgName": "genesysapacanz",
+                "queueName": "AR Queue",
+                "logLevel": "DEBUG",
+                "locale": "en",
+                "data": {
+                    "firstName": "Wayne",
+                    "lastName": "Calamai",
+                    "addressStreet": "1522 Meduwe Court",
+                    "addressCity": "Oluvevnov",
+                    "addressPostalCode": "23931",
+                    "addressState": "TN",
+                    "phoneNumber": "(510) 613-2999",
+                    "customField1Label": "",
+                    "customField1": "",
+                    "customField2Label": "",
+                    "customField2": "",
+                    "customField3Label": "",
+                    "customField3": ""
+                },
+                "companyLogo": {
+                    "width": 600,
+                    "height": 149,
+                    "url": "https://d3a63qt71m2kua.cloudfront.net/developer-tools/1080/assets/images/PC-blue-nomark.png"
+                },
+                "companyLogoSmall": {
+                    "width": 25,
+                    "height": 25,
+                    "url": "https://d3a63qt71m2kua.cloudfront.net/developer-tools/1080/assets/images/companylogo.png"
+                },
+                "agentAvatar": {
+                    "width": 462,
+                    "height": 462,
+                    "url": "https://d3a63qt71m2kua.cloudfront.net/developer-tools/1080/assets/images/agent.jpg"
+                },
+                "welcomeMessage": "Thanks for chatting using the dev tools chat page.",
+                "cssClass": "webchat-frame",
+                "css": {
+                    "width": "100%",
+                    "height": "100%"
+                }
+            };
+            var chatButton = document.getElementById('chat-button');
+
+            // Required if reconnects are enabled
+            window.PURECLOUD_WEBCHAT_FRAME_CONFIG = {
+                containerEl: 'chat-container'
+            };
+
+            ININ.webchat.create(chatConfig, function(err, webchat) {
+    if (err) {
+        console.error(err);
+        throw err;
+    }
+
+    webchat.renderFrame({
+        containerEl: 'chat-container'
+    }); 
+});
+
+    </script>
+    </body>
+    </html>
